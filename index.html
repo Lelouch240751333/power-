@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tajiran · ห้องแล็บไฟฟ้ากำลัง</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=Noto+Sans+Thai:wght@400;500&display=swap">
+<style>
+:root{--bg:#f6f1ea;--ink:#1c1530;--soft:#756c86;--card:#ffffffb8;--line:#1c153024;--a:#c97800;--btn:#1c1530;--bi:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0a1a;--ink:#f3ecdf;--soft:#a299b5;--card:#ffffff0d;--line:#ffffff1d;--a:#ffb03a;--btn:#f3ecdf;--bi:#0e0a1a}}
+:root[data-theme="dark"]{--bg:#0e0a1a;--ink:#f3ecdf;--soft:#a299b5;--card:#ffffff0d;--line:#ffffff1d;--a:#ffb03a;--btn:#f3ecdf;--bi:#0e0a1a}
+*{box-sizing:border-box;margin:0}
+html{height:100%}
+:root{padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 "Noto Sans Thai",system-ui,sans-serif;min-height:100%}
+.wrap{max-width:640px;margin:0 auto;padding:18px 18px calc(96px + env(safe-area-inset-bottom,0px))}
+h1{font:700 clamp(26px,7vw,34px)/1.3 "Noto Serif Thai",serif}
+.sub{color:var(--soft);font-size:14px;margin:4px 0 16px}
+h2{font:500 19px "Noto Serif Thai",serif;margin:26px 0 10px}
+section{display:none}section.on{display:block}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:12px}
+label{display:block;font-size:12.5px;color:var(--soft)}
+input,select{width:100%;font:inherit;color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid var(--line);padding:5px 0;border-radius:0;min-width:0}
+select{background:var(--bg)}
+input:focus,select:focus{outline:0;border-color:var(--a)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+.g{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.ln .h{display:flex;gap:8px;align-items:end}
+.ln .h input{font-weight:500}
+.ln .t{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--soft)}
+.ln .t b{color:var(--ink);font:700 16px "Noto Serif Thai",serif}
+button{font:500 14.5px "Noto Sans Thai",sans-serif;cursor:pointer}
+.b{background:var(--btn);color:var(--bi);border:0;border-radius:999px;padding:9px 18px}
+.o{background:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:9px 18px}
+.x{background:none;border:0;color:var(--soft);font-size:20px;line-height:1;padding:4px 6px}
+.add{display:flex;gap:8px;margin-bottom:12px}.add select{flex:1}
+.sum div{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)}
+.sum div.big{border:0;padding-top:12px;font:700 22px "Noto Serif Thai",serif;color:var(--a)}
+.sum input{width:64px;text-align:right;display:inline-block}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:7px 4px;border-bottom:1px solid var(--line);text-align:right}
+th{font-weight:500;color:var(--soft)}td:first-child,th:first-child{text-align:left}
+tr.ok td{color:var(--a);font-weight:500}
+tr.bad td{color:var(--soft)}
+.note{font-size:12.5px;color:var(--soft);margin-top:10px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:8px;padding:10px 14px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--bg) 40%)}
+nav button{flex:1;max-width:190px;background:var(--card);backdrop-filter:blur(14px);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:11px 6px}
+nav button[aria-selected=true]{background:var(--btn);color:var(--bi);border-color:transparent}
+@media print{nav,.add,.x,.row,.noprint{display:none!important}section{display:block!important}#s1,#s2{display:none!important}body{background:#fff;color:#000}.box{border-color:#ccc}}
+canvas{display:block;width:100%;height:90px}
+#q{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:11px 20px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0;scrollbar-width:none}
+.chips button{flex:none;font:500 14px "Noto Sans Thai",sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--btn);color:var(--bi);border-color:transparent}
+#s3 h2{font:500 15px "Noto Sans Thai",sans-serif;color:var(--soft);margin:22px 0 4px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:14px 0;display:flex;justify-content:space-between;gap:12px;font:500 17px "Noto Serif Thai",serif}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--a);font:400 22px/1 sans-serif}
+details[open] summary::after{content:"−"}
+.f{color:var(--a);font:500 14px ui-monospace,Menlo,monospace;margin:-4px 0 12px}
+.out{margin:14px 0 18px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.out div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:14.5px;color:var(--soft)}
+.out b{font:700 18px "Noto Serif Thai",serif;color:var(--ink)}
+.none{color:var(--soft);padding:24px 0;text-align:center}
+
+@media print{#s3{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<canvas id="w" aria-hidden="true"></canvas>
+<h1>ห้องแล็บไฟฟ้ากำลัง</h1>
+<p class="sub">คำนวณสูตรไฟฟ้า ประมาณราคางานไฟฟ้า ค่าไฟรายเดือน และเลือกขนาดสายไฟ ในที่เดียว</p>
+<section id="s3" class="on">
+<input id="q" type="search" placeholder="ค้นหา เช่น มอเตอร์ power factor สายไฟ" aria-label="ค้นหา">
+<div class="chips" id="ch"></div>
+<div id="list"></div>
+<p class="none" id="none" hidden>ไม่พบเครื่องมือที่ตรงกับคำค้นหา ลองคำอื่น หรือเลือกหมวดทั้งหมด</p>
+<p class="note">ผลลัพธ์เป็นการคำนวณเบื้องต้นเพื่อการเรียนและวางแผน การออกแบบจริงต้องตรวจสอบตามมาตรฐาน วสท. และ มอก. ทุกครั้ง การคำนวณแรงดันตกใช้ค่าความต้านทานทองแดงที่ 70°C และไม่รวมรีแอกแตนซ์ของสาย</p>
+
+</section>
+<section id="s0">
+<div class="box"><label>ชื่อโครงการ<input id="pn" placeholder="เช่น บ้านคุณสมชาย ชั้น 1"></label></div>
+<div class="add noprint"><select id="lib" aria-label="เลือกรายการ"></select><button class="b" id="addl">เพิ่ม</button></div>
+<div id="lines"></div>
+<div class="row noprint"><button class="o" id="addc">เพิ่มรายการเอง</button></div>
+<h2>สรุปราคา</h2>
+<div class="box sum" id="sum"></div>
+<div class="row noprint"><button class="b" id="pr">พิมพ์ / บันทึกเป็น PDF</button><button class="o" id="cp">คัดลอกเป็นข้อความ</button><button class="o" id="cl">ล้างทั้งหมด</button></div>
+<p class="note">ราคาเป็นการประมาณเบื้องต้นเพื่อใช้วางแผน ราคาจริงขึ้นกับตลาดและหน้างาน</p>
+</section>
+
+<section id="s1">
+<h2>ค่าไฟรายเดือน</h2>
+<div class="add noprint"><select id="bl" aria-label="เลือกเครื่องใช้ไฟฟ้า"></select><button class="b" id="addb">เพิ่ม</button></div>
+<div id="bills"></div>
+<div class="box"><div class="g">
+<label>ค่าไฟต่อหน่วย (บาท)<input id="rt" type="number" inputmode="decimal" value="4.2"></label>
+<label>ค่า Ft (บาท/หน่วย)<input id="ft" type="number" inputmode="decimal" value="0"></label>
+<label>ค่าบริการรายเดือน (บาท)<input id="sv" type="number" inputmode="decimal" value="0"></label>
+<label>VAT (%)<input id="bv" type="number" inputmode="decimal" value="7"></label></div></div>
+<div class="box sum" id="bsum"></div>
+<p class="note">ใช้อัตราเดียวเพื่อความง่าย ถ้าบิลจริงเป็นอัตราก้าวหน้า ให้ใส่ค่าเฉลี่ยต่อหน่วยจากบิลของคุณ</p>
+</section>
+
+<section id="s2">
+<h2>เลือกขนาดสายไฟ (แรงดันตก)</h2>
+<div class="box"><div class="g">
+<label>ระบบ<select id="sy"><option value="1">1 เฟส 230 V</option><option value="3">3 เฟส 400 V</option></select></label>
+<label>กระแสโหลด (A)<input id="ci" type="number" inputmode="decimal" value="25"></label>
+<label>ความยาวสาย (m)<input id="cl2" type="number" inputmode="decimal" value="40"></label>
+<label>Power factor<input id="cp2" type="number" inputmode="decimal" step="0.01" value="0.9"></label></div></div>
+<div class="box"><table><thead><tr><th>ขนาด (ตร.มม.)</th><th>ตก (V)</th><th>ตก (%)</th></tr></thead><tbody id="ct"></tbody></table></div>
+<p class="note">เกณฑ์แรงดันตกไม่เกิน 3% สำหรับวงจรย่อย ต้องตรวจกระแสที่สายทนได้ตามมาตรฐาน วสท. ด้วยทุกครั้ง</p>
+</section>
+</div>
+<nav role="tablist"><button role="tab" aria-selected="true">คำนวณ</button><button role="tab" aria-selected="false">ประมาณราคา</button><button role="tab" aria-selected="false">ค่าไฟ</button><button role="tab" aria-selected="false">สายไฟ</button></nav>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var BR=[6,10,16,20,25,32,40,50,63,80,100,125,160,200,250,315,400,500,630];
+var G={brk:function(x){for(var i=0;i<BR.length;i++)if(BR[i]>=x)return BR[i];return NaN},r3:Math.sqrt(3),pi:Math.PI};
+var SYS=[[1,"1 เฟส 230 V"],[3,"3 เฟส 400 V"]];
+var SZ=[[12.1,"1.5 ตร.มม."],[7.41,"2.5 ตร.มม."],[4.61,"4 ตร.มม."],[3.08,"6 ตร.มม."],[1.83,"10 ตร.มม."],[1.15,"16 ตร.มม."],[.727,"25 ตร.มม."],[.524,"35 ตร.มม."],[.387,"50 ตร.มม."],[.268,"70 ตร.มม."],[.193,"95 ตร.มม."],[.153,"120 ตร.มม."]];
+var CATS=["พื้นฐาน","กำลัง AC","มอเตอร์","หม้อแปลง","สายไฟ","อื่น ๆ"];
+var D=[
+[0,"กฎของโอห์ม","V = I·R,  P = V·I",[["V","แรงดัน V (โวลต์)",220],["I","กระแส I (แอมป์)",10]],[["R ความต้านทาน (Ω)","V/I"],["P กำลัง (W)","V*I"]]],
+[0,"กำลังจากกระแสและความต้านทาน","P = I²R,  V = I·R",[["I","กระแส I (A)",10],["R","ความต้านทาน R (Ω)",22]],[["P (W)","I*I*R"],["V (V)","I*R"]]],
+[0,"ตัวต้านทานอนุกรมและขนาน","Rs = ΣR,  1/Rp = Σ(1/R)",[["R1","R1 (Ω)",10],["R2","R2 (Ω)",20],["R3","R3 (Ω)",30]],[["อนุกรม (Ω)","R1+R2+R3"],["ขนาน (Ω)","1/(1/R1+1/R2+1/R3)"]]],
+[0,"รีแอกแตนซ์และความถี่เรโซแนนซ์","XL = 2πfL,  XC = 1/(2πfC)",[["f","ความถี่ f (Hz)",50],["C","C (µF)",100],["L","L (mH)",100]],[["XL (Ω)","2*pi*f*L/1000"],["XC (Ω)","1e6/(2*pi*f*C)"],["f0 เรโซแนนซ์ (Hz)","1/(2*pi*Math.sqrt(L/1000*C/1e6))"]]],
+[0,"อิมพีแดนซ์ RLC อนุกรม","Z = √(R² + (XL−XC)²)",[["R","R (Ω)",10],["XL","XL (Ω)",15],["XC","XC (Ω)",5]],[["Z (Ω)","Math.hypot(R,XL-XC)"],["มุมเฟส φ (องศา)","Math.atan2(XL-XC,R)*180/pi"],["power factor","R/Math.hypot(R,XL-XC)"]]],
+[1,"กำลังไฟฟ้า 1 เฟส","P = V·I·cosφ",[["V","V (โวลต์)",230],["I","I (แอมป์)",10],["pf","power factor",.9]],[["S (VA)","V*I"],["P (W)","V*I*pf"],["Q (VAR)","V*I*Math.sqrt(1-pf*pf)"]]],
+[1,"กำลังไฟฟ้า 3 เฟส","P = √3·VL·IL·cosφ",[["VL","VL (โวลต์)",400],["IL","IL (แอมป์)",20],["pf","power factor",.85]],[["S (kVA)","r3*VL*IL/1000"],["P (kW)","r3*VL*IL*pf/1000"],["Q (kVAR)","r3*VL*IL*Math.sqrt(1-pf*pf)/1000"]]],
+[1,"ปรับปรุง power factor","Qc = P(tanφ1 − tanφ2)",[["P","โหลด P (kW)",100],["pf1","pf เดิม",.75],["pf2","pf เป้าหมาย",.95]],[["Qc ที่ต้องเพิ่ม (kVAR)","P*(Math.tan(Math.acos(pf1))-Math.tan(Math.acos(pf2)))"],["kVA ที่ลดลง","P/pf1-P/pf2"]]],
+[1,"ขนาดคาปาซิเตอร์ (ต่อแบบเดลต้า)","C = Qc/(3·2πf·VL²)",[["Qc","Qc (kVAR)",30],["VL","VL (โวลต์)",400],["f","f (Hz)",50]],[["C ต่อเฟส (µF)","Qc*1000/(3*2*pi*f*VL*VL)*1e6"]]],
+[1,"พลังงานและค่าไฟ","E = P × t",[["P","กำลัง P (kW)",1.5],["h","ชั่วโมง/วัน",6],["rate","บาท/หน่วย",4.2]],[["kWh/วัน","P*h"],["kWh/เดือน","P*h*30"],["ค่าไฟ/เดือน (฿)","P*h*30*rate"]]],
+[1,"ประสิทธิภาพและกำลังสูญเสีย","η = Pout / Pin",[["Po","Pout (kW)",7.5],["Pi","Pin (kW)",8.5]],[["η (%)","Po/Pi*100"],["สูญเสีย (kW)","Pi-Po"]]],
+[2,"ความเร็วซิงโครนัสและสลิป","Ns = 120f/p,  s = (Ns−Nr)/Ns",[["f","f (Hz)",50],["p","จำนวนขั้ว p",4],["Nr","ความเร็วโรเตอร์ (rpm)",1450]],[["Ns (rpm)","120*f/p"],["สลิป s (%)","(120*f/p-Nr)/(120*f/p)*100"]]],
+[2,"กระแสมอเตอร์ 3 เฟส","I = P / (√3·VL·pf·η)",[["P","กำลังเพลา (kW)",7.5],["VL","VL (โวลต์)",400],["pf","power factor",.85],["eta","ประสิทธิภาพ η (%)",88]],[["I (A)","P*1000/(r3*VL*pf*eta/100)"],["เบรกเกอร์เบื้องต้น ≥125% (A)","brk(1.25*P*1000/(r3*VL*pf*eta/100))"]]],
+[2,"แรงบิดมอเตอร์","T = 9550·P / N",[["P","P (kW)",7.5],["N","ความเร็ว (rpm)",1450]],[["T (N·m)","9550*P/N"]]],
+[2,"แปลงหน่วย hp และ kW","1 hp = 0.746 kW",[["hp","แรงม้า (hp)",10],["kw","กิโลวัตต์ (kW)",5]],[["hp → kW","hp*0.746"],["kW → hp","kw/0.746"]]],
+[3,"อัตราส่วนรอบหม้อแปลง","V1/V2 = N1/N2 = I2/I1",[["V1","V1 (โวลต์)",22000],["V2","V2 (โวลต์)",400],["I2","I2 (แอมป์)",1000]],[["อัตราส่วน a","V1/V2"],["I1 (A)","I2*V2/V1"]]],
+[3,"กระแสหม้อแปลง 3 เฟส","I = kVA / (√3·V)",[["kva","ขนาด (kVA)",1000],["V1","แรงดันสูง (V)",22000],["V2","แรงดันต่ำ (V)",400]],[["I ด้านสูง (A)","kva*1000/(r3*V1)"],["I ด้านต่ำ (A)","kva*1000/(r3*V2)"]]],
+[3,"กระแสลัดวงจรหม้อแปลง","Isc = In / (%Z/100)",[["kva","ขนาด (kVA)",1000],["V2","แรงดันด้านต่ำ (V)",400],["z","%Z",5]],[["กระแสพิกัด In (A)","kva*1000/(r3*V2)"],["Isc (kA)","kva*1000/(r3*V2)/(z/100)/1000"]]],
+[4,"แรงดันตกในสายไฟ","ΔV = k·I·L·R·cosφ",[["sys","ระบบ",1,SYS],["R","ขนาดสายทองแดง",3.08,SZ],["I","กระแส (A)",25],["L","ความยาว (m)",40],["pf","power factor",.9]],[["ΔV (V)","(sys==3?r3:2)*I*L*R*1.2/1000*pf"],["ΔV (%)","(sys==3?r3:2)*I*L*R*1.2/1000*pf/(sys==3?400:230)*100"]]],
+[4,"กำลังสูญเสียในสายไฟ","Ploss = n·I²R",[["sys","ระบบ",1,SYS],["R","ขนาดสายทองแดง",3.08,SZ],["I","กระแส (A)",25],["L","ความยาว (m)",40]],[["สูญเสีย (W)","(sys==3?3:2)*I*I*R*1.2/1000*L"],["ต่อปี ถ้าใช้วันละ 8 ชม. (kWh)","(sys==3?3:2)*I*I*R*1.2/1000*L*8*365/1000"]]],
+[5,"ขนาดเบรกเกอร์โหลดเดียว","In ≥ 1.25 × I",[["sys","ระบบ",1,SYS],["P","กำลังโหลด (W)",3000],["pf","power factor",.9]],[["กระแสโหลด (A)","sys==3?P/(r3*400*pf):P/(230*pf)"],["เบรกเกอร์ที่แนะนำ (A)","brk(1.25*(sys==3?P/(r3*400*pf):P/(230*pf)))"]]],
+[5,"จำนวนโคมไฟ (Lumen method)","N = E·A / (Φ·UF·MF)",[["E","ความสว่าง E (lux)",300],["A","พื้นที่ (ตร.ม.)",20],["ph","ลูเมนต่อโคม",1800],["uf","UF",.6],["mf","MF",.8]],[["จำนวนโคม","E*A/(ph*uf*mf)"],["ปัดขึ้น (โคม)","Math.ceil(E*A/(ph*uf*mf))"]]],
+[5,"แบตเตอรี่สำรองไฟ","t = Ah·V·DoD·η / P",[["Ah","ความจุ (Ah)",100],["V","แรงดัน (V)",12],["P","โหลด (W)",200],["dod","DoD (%)",80],["eta","η อินเวอร์เตอร์ (%)",90]],[["ใช้ได้นาน (ชั่วโมง)","Ah*V*dod/100*eta/100/P"]]],
+[5,"พลังงานจากโซลาร์เซลล์","E = kWp · ชม.แดด · PR",[["k","ขนาด (kWp)",5],["h","ชั่วโมงแดดเต็ม/วัน",4.5],["pr","PR",.8]],[["kWh/วัน","k*h*pr"],["kWh/เดือน","k*h*pr*30"],["kWh/ปี","k*h*pr*365"]]]
+];
+function fmt(x){return isFinite(x)?x.toLocaleString("en",{maximumFractionDigits:Math.abs(x)<10?3:2}):"-"}
+var list=$("list"),ch=$("ch"),cat=-1,lastC=-1;
+D.forEach(function(d){
+ if(d[0]!=lastC){lastC=d[0];var h=document.createElement("h2");h.textContent=CATS[d[0]];h.dataset.c=d[0];list.appendChild(h)}
+ var el=document.createElement("details");el.dataset.c=d[0];el.dataset.t=(d[1]+" "+d[2]+" "+CATS[d[0]]).toLowerCase();
+ var s=document.createElement("summary");s.textContent=d[1];el.appendChild(s);
+ var f=document.createElement("p");f.className="f";f.textContent=d[2];el.appendChild(f);
+ var g=document.createElement("div");g.className="g";var inp={};
+ d[3].forEach(function(x){var l=document.createElement("label"),i;l.textContent=x[1];
+  if(x[3]){i=document.createElement("select");x[3].forEach(function(o){var op=new Option(o[1],o[0]);if(o[0]==x[2])op.selected=true;i.add(op)})}
+  else{i=document.createElement("input");i.type="number";i.inputMode="decimal";i.step="any";i.value=x[2]}
+  l.appendChild(i);g.appendChild(l);inp[x[0]]=i;i.oninput=i.onchange=run});
+ el.appendChild(g);var out=document.createElement("div");out.className="out";el.appendChild(out);
+ var fns=d[4].map(function(o){return new Function("o","with(o){return "+o[1]+"}")});
+ function run(){var v=Object.assign({},G);for(var k in inp)v[k]=parseFloat(inp[k].value);
+  out.innerHTML="";d[4].forEach(function(o,n){var r;try{r=fns[n](v)}catch(e){r=NaN}var row=document.createElement("div"),a=document.createElement("span"),b=document.createElement("b");a.textContent=o[0];b.textContent=fmt(r);row.appendChild(a);row.appendChild(b);out.appendChild(row)})}
+ run();list.appendChild(el);
+});
+["ทั้งหมด"].concat(CATS).forEach(function(n,i){var b=document.createElement("button");b.textContent=n;b.setAttribute("aria-pressed",i==0);
+ b.onclick=function(){cat=i-1;[].forEach.call(ch.children,function(x,j){x.setAttribute("aria-pressed",j==i)});filter()};ch.appendChild(b)});
+function filter(){var t=$("q").value.trim().toLowerCase(),n=0,seen={};
+ [].forEach.call(list.querySelectorAll("details"),function(e){var ok=(cat<0||+e.dataset.c==cat)&&(!t||e.dataset.t.indexOf(t)>-1);e.hidden=!ok;if(ok){n++;seen[e.dataset.c]=1}});
+ [].forEach.call(list.querySelectorAll("h2"),function(h){h.hidden=!seen[h.dataset.c]});$("none").hidden=n>0}
+$("q").oninput=filter;
+var cv=$("w"),cx=cv.getContext("2d"),still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+function wave(t){var dp=devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;cv.width=w*dp;cv.height=h*dp;cx.setTransform(dp,0,0,dp,0,0);
+ var st=getComputedStyle(document.documentElement),a=st.getPropertyValue("--a").trim();
+ ["#d9396b",a,"#8a6cff"].forEach(function(c,k){cx.beginPath();cx.strokeStyle=c;cx.lineWidth=2.2;
+  for(var x=0;x<=w;x+=3){var y=h/2+Math.sin(x/w*Math.PI*4-t/800-k*2.0944)*h*.36;x?cx.lineTo(x,y):cx.moveTo(x,y)}cx.stroke()});
+ if(!still)requestAnimationFrame(wave)}
+requestAnimationFrame(wave);
+})();
+(function(){
+var $=function(i){return document.getElementById(i)},N=function(i){return parseFloat($(i).value)||0};
+function M(x){return x.toLocaleString("th-TH",{minimumFractionDigits:2,maximumFractionDigits:2})}
+var LIB=[["สายไฟ THW 1x2.5 ตร.มม.","เมตร",12,6],["สายไฟ THW 1x4 ตร.มม.","เมตร",19,6],["สายไฟ THW 1x6 ตร.มม.","เมตร",29,7],["สายไฟ THW 1x10 ตร.มม.","เมตร",48,8],["ท่อ EMT 1/2 นิ้ว","เมตร",35,20],["ท่อ PVC 1/2 นิ้ว","เมตร",12,10],["เบรกเกอร์ 1P 20A","ตัว",150,100],["เบรกเกอร์ 3P 63A","ตัว",1800,400],["เครื่องตัดไฟรั่ว RCBO 30mA","ตัว",900,200],["ตู้โหลดเซ็นเตอร์ 6 ช่อง","ชุด",1500,600],["เต้ารับคู่ มีกราวด์","จุด",120,150],["สวิตช์ 1 ทาง","จุด",60,120],["โคมไฟ LED 18W","ชุด",250,200],["หลักดินทองแดง 5/8 นิ้ว x 8 ฟุต","ต้น",650,350]];
+var BL=[["หลอด LED 18W",18,1,6],["พัดลม",50,1,8],["ทีวี",100,1,5],["ตู้เย็น",150,1,24],["แอร์ 12000 BTU",1100,1,8],["เครื่องทำน้ำอุ่น",3500,1,0.5],["คอมพิวเตอร์",200,1,6],["หม้อหุงข้าว",700,1,1]];
+function ld(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var items=ld("est-items",[]),loads=ld("est-loads",[]);
+LIB.forEach(function(r,i){$("lib").add(new Option(r[0]+" ("+r[2]+"+"+r[3]+" ฿/"+r[1]+")",i))});
+BL.forEach(function(r,i){$("bl").add(new Option(r[0]+" "+r[1]+" W",i))});
+$("pn").value=ld("est-name","");$("pn").oninput=function(){sv("est-name",$("pn").value)};
+function el(h){var d=document.createElement("div");d.innerHTML=h;return d.firstChild}
+function lines(){
+ var c=$("lines");c.innerHTML="";
+ if(!items.length)c.innerHTML='<div class="box note">ยังไม่มีรายการ เลือกจากรายการด้านบนแล้วกดเพิ่ม</div>';
+ items.forEach(function(it,i){
+  var d=el('<div class="box ln"><div class="h"><label style="flex:1">รายการ<input data-k="n"></label><button class="x" aria-label="ลบรายการ">×</button></div><div class="g4"><label>จำนวน<input data-k="q" type="number" inputmode="decimal"></label><label>หน่วย<input data-k="u"></label><label>วัสดุ/หน่วย<input data-k="m" type="number" inputmode="decimal"></label><label>แรง/หน่วย<input data-k="l" type="number" inputmode="decimal"></label></div><div class="t"><span>รวมบรรทัดนี้ (฿)</span><b></b></div></div>');
+  d.querySelectorAll("input").forEach(function(x){var k=x.dataset.k;x.value=it[k];x.oninput=function(){it[k]=(k=="n"||k=="u")?x.value:parseFloat(x.value)||0;tot()}});
+  d.querySelector(".x").onclick=function(){items.splice(i,1);lines();tot()};
+  d.querySelector("b").id="lt"+i;c.appendChild(d)});
+ tot();
+}
+var P1=ld("est-p1",15),P2=ld("est-p2",5);
+function tot(){
+ var mat=0,lab=0;
+ items.forEach(function(it,i){mat+=it.q*it.m;lab+=it.q*it.l;var b=$("lt"+i);if(b)b.textContent=M(it.q*(it.m+it.l))});
+ var sub=mat+lab,oh=sub*P1/100,ct=sub*P2/100,pre=sub+oh+ct,vat=pre*.07;
+ $("sum").innerHTML='<div><span>ค่าวัสดุรวม</span><span>'+M(mat)+'</span></div><div><span>ค่าแรงรวม</span><span>'+M(lab)+'</span></div><div><span>รวมวัสดุและแรง</span><span>'+M(sub)+'</span></div><div><span>ค่าดำเนินการและกำไร <input id="p1" type="number" inputmode="decimal" aria-label="เปอร์เซ็นต์ค่าดำเนินการ"> %</span><span>'+M(oh)+'</span></div><div><span>เผื่อเหลือเผื่อขาด <input id="p2" type="number" inputmode="decimal" aria-label="เปอร์เซ็นต์สำรอง"> %</span><span>'+M(ct)+'</span></div><div><span>VAT 7%</span><span>'+M(vat)+'</span></div><div class="big"><span>รวมทั้งสิ้น</span><span>'+M(pre+vat)+' ฿</span></div>';
+ var a=$("p1"),b=$("p2");a.value=P1;b.value=P2;
+ a.onchange=function(){P1=parseFloat(a.value)||0;sv("est-p1",P1);tot()};b.onchange=function(){P2=parseFloat(b.value)||0;sv("est-p2",P2);tot()};
+ sv("est-items",items);
+}
+$("addl").onclick=function(){var r=LIB[$("lib").value];items.push({n:r[0],u:r[1],q:1,m:r[2],l:r[3]});lines()};
+$("addc").onclick=function(){items.push({n:"รายการใหม่",u:"หน่วย",q:1,m:0,l:0});lines()};
+$("cl").onclick=function(){if(items.length&&confirm("ล้างรายการทั้งหมด?")){items=[];lines()}};
+$("pr").onclick=function(){window.print()};
+$("cp").onclick=function(){var t="ใบประมาณราคา "+$("pn").value+"\n";items.forEach(function(it,k){t+=(k+1)+". "+it.n+" "+it.q+" "+it.u+" x ("+it.m+"+"+it.l+") = "+M(it.q*(it.m+it.l))+"\n"});
+ t+=$("sum").innerText.replace(/\n+/g,"\n");var b=$("cp");try{navigator.clipboard.writeText(t).then(function(){b.textContent="คัดลอกแล้ว"})}catch(e){b.textContent="คัดลอกไม่ได้"}setTimeout(function(){b.textContent="คัดลอกเป็นข้อความ"},1800)};
+function bills(){
+ var c=$("bills");c.innerHTML="";
+ loads.forEach(function(it,i){
+  var d=el('<div class="box ln"><div class="h"><label style="flex:1">เครื่องใช้ไฟฟ้า<input data-k="n"></label><button class="x" aria-label="ลบ">×</button></div><div class="g4" style="grid-template-columns:repeat(3,1fr)"><label>กำลัง (W)<input data-k="w" type="number" inputmode="decimal"></label><label>จำนวน<input data-k="q" type="number" inputmode="decimal"></label><label>ชม./วัน<input data-k="h" type="number" inputmode="decimal"></label></div></div>');
+  d.querySelectorAll("input").forEach(function(x){var k=x.dataset.k;x.value=it[k];x.oninput=function(){it[k]=k=="n"?x.value:parseFloat(x.value)||0;bt()}});
+  d.querySelector(".x").onclick=function(){loads.splice(i,1);bills()};c.appendChild(d)});
+ bt();
+}
+function bt(){
+ var k=0;loads.forEach(function(l){k+=l.w*l.q*l.h*30/1000});
+ var e=k*(N("rt")+N("ft"))+N("sv"),v=e*N("bv")/100;
+ $("bsum").innerHTML='<div><span>พลังงานต่อเดือน</span><span>'+M(k)+' kWh</span></div><div><span>ค่าไฟก่อน VAT</span><span>'+M(e)+'</span></div><div><span>VAT</span><span>'+M(v)+'</span></div><div class="big"><span>ค่าไฟรวม/เดือน</span><span>'+M(e+v)+' ฿</span></div><div><span>ต่อปี โดยประมาณ</span><span>'+M((e+v)*12)+' ฿</span></div>';
+ sv("est-loads",loads);
+}
+["rt","ft","sv","bv"].forEach(function(i){$(i).oninput=bt});
+$("addb").onclick=function(){var r=BL[$("bl").value];loads.push({n:r[0],w:r[1],q:r[2],h:r[3]});bills()};
+var SZ=[1.5,2.5,4,6,10,16,25,35,50,70,95,120],R=[12.1,7.41,4.61,3.08,1.83,1.15,.727,.524,.387,.268,.193,.153];
+function cab(){
+ var ph=$("sy").value=="3",I=N("ci"),L=N("cl2"),pf=N("cp2"),V=ph?400:230,t=$("ct"),first=true;t.innerHTML="";
+ SZ.forEach(function(s,i){var r=R[i]*1.2/1000,dv=(ph?Math.sqrt(3):2)*I*L*r*pf,p=dv/V*100,ok=p<=3,cls=ok&&first?"ok":ok?"":"bad";if(ok)first=false;
+  var tr=document.createElement("tr");tr.className=cls;tr.innerHTML="<td>"+s+(cls=="ok"?" (เล็กสุดที่ผ่าน)":"")+"</td><td>"+M(dv)+"</td><td>"+M(p)+"</td>";t.appendChild(tr)});
+}
+["sy","ci","cl2","cp2"].forEach(function(i){$(i).oninput=cab;$(i).onchange=cab});
+var tabs=document.querySelectorAll("nav button"),ids=["s3","s0","s1","s2"];
+tabs.forEach(function(b,i){b.onclick=function(){tabs.forEach(function(x,j){x.setAttribute("aria-selected",i==j);$(ids[j]).className=i==j?"on":""});scrollTo(0,0)}});
+lines();bills();cab();
+})();
+</script>
+</body>
+</html>
